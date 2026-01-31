@@ -17,7 +17,7 @@ if (file_exists(__DIR__ . '/.env')) {
 
 $host = $_ENV['DB_HOST'] ?? 'localhost';
 $username = $_ENV['DB_USER'] ?? 'root';
-$password = $_ENV['DB_PASS'] ?? '';
+$password = $_ENV['DB_PASS'] ?? 'vKs$135#';
 $database = $_ENV['DB_NAME'] ?? 'appointment_scheduler';
 
 $conn = @new mysqli($host, $username, $password, $database);
