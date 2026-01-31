@@ -7,118 +7,175 @@ session_start();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Appointment Scheduler - Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Lora:wght@400;700&display=swap" rel="stylesheet"/>
+  <title>Appointment Scheduler | Modern Care</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #0f172a;
+      --accent: #38bdf8;
+      --light: #f8fafc;
+      --text-dark: #1e293b;
+    }
+
     body {
-      font-family: 'Lora', serif;
-      background-color:rgb(204, 206, 210);
+      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      color: #1B2A41;
+      color: var(--text-dark);
+      /* Professional Medical Background Image */
+      background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
+                  url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=2000');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
 
     header {
-      background-color:hsl(216, 55.60%, 19.40%);
-      padding: 30px 20px;
-      color: white;
+      padding: 40px 20px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      color: white;
     }
 
     header h1 {
-      font-family: 'Roboto', sans-serif;
-      /* font-size: 2.8em; */
-      font-size: 45px; 
-      letter-spacing: 1px;
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
       margin: 0;
+      letter-spacing: -1px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-top: 10px;
+      font-weight: 300;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
 
     nav {
-      margin: 40px auto;
-      width: 90%;
-      max-width: 600px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
+    }
+
+    .nav-title {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: var(--secondary);
     }
 
     nav a {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       padding: 16px;
-      background-color:hsl(216, 64.40%, 35.30%);
+      background-color: var(--primary);
       color: white;
       text-decoration: none;
-      text-align: center;
-      border-radius: 10px;
-      font-size: 19px;
-      font-family: 'Roboto', sans-serif;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgb(0, 0, 0);
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    nav a i {
+      font-size: 1.2rem;
+    }
+
+    /* Distinct style for secondary buttons (Register) */
+    nav a.register-btn {
+      background-color: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
     }
 
     nav a:hover {
-      background-color: #4DA8DA;
-      color: #ffffff;
-      transform: translateY(-3px);
+      background-color: var(--secondary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
     }
 
-    nav a:active {
-      transform: translateY(2px);
+    nav a.register-btn:hover {
+        background-color: var(--primary);
     }
 
     footer {
-      margin-top: auto;
-      background-color:rgb(38, 56, 83);
+      background: rgba(15, 23, 42, 0.9);
       color: white;
       text-align: center;
-      padding: 20px;
+      padding: 30px;
       font-size: 14px;
     }
 
     footer .creator {
-      color: #4DA8DA;
-      font-weight: bold;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    footer span {
-      font-size: 12px;
-      display: block;
-      margin-top: 5px;
-    }
-
-    @media (max-width: 600px) {
+    @media (max-width: 480px) {
       nav {
-        width: 90%;
+        padding: 30px 20px;
       }
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>Appointment Scheduler</h1>
+    <p>Seamless healthcare management at your fingertips.</p>
   </header>
 
-  <nav>
-    <?php if (isset($_SESSION['admin_id'])): ?>
-        <a href="admin_dashboard.php">Admin Dashboard</a>
-        <a href="admin_logout.php">Logout</a>
-    <?php elseif (isset($_SESSION['patient_id'])): ?>
-        <a href="patient_dashboard.php">Patient Dashboard</a>
-        <a href="patient_logout.php">Logout</a>
-    <?php else: ?>
-        <a href="admin_login.php">Admin Login</a>
-        <a href="patient_login.php">Patient Login</a>
-        <a href="patient_register.php">Patient Register</a>
-    <?php endif; ?>
-  </nav>
+  <div class="container">
+    <nav>
+      <div class="nav-title">Welcome Back</div>
+      
+      <?php if (isset($_SESSION['admin_id'])): ?>
+          <a href="admin_dashboard.php"><i class="fa-solid fa-chart-line"></i> Admin Dashboard</a>
+          <a href="admin_logout.php" style="background: #ef4444;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      
+      <?php elseif (isset($_SESSION['patient_id'])): ?>
+          <a href="patient_dashboard.php"><i class="fa-solid fa-user-doctor"></i> Patient Dashboard</a>
+          <a href="patient_logout.php" style="background: #ef4444;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      
+      <?php else: ?>
+          <a href="patient_login.php"><i class="fa-solid fa-hospital-user"></i> Patient Login</a>
+          <a href="patient_register.php" class="register-btn"><i class="fa-solid fa-user-plus"></i> Create Account</a>
+          <hr style="width:100%; border: 0; border-top: 1px solid #e2e8f0; margin: 10px 0;">
+          <a href="admin_login.php" style="background: var(--secondary);"><i class="fa-solid fa-lock"></i> Staff Portal</a>
+      <?php endif; ?>
+    </nav>
+  </div>
 
   <footer>
-    &copy; <?php echo date("Y"); ?> Appointment Scheduler<br>
-    <span class="creator">Created by Varun Kumar S</span>
+    &copy; <?php echo date("Y"); ?> Appointment Scheduler System<br>
+    <span class="creator">Developed by Varun Kumar S</span>
   </footer>
+
 </body>
 </html>
